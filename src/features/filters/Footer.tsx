@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { FC } from 'react'
 import FilterLink from './FilterLink'
 import { VisibilityFilters } from './filtersSlice'
 
-const Footer = () => (
+const Footer:FC = () => (
   <div>
     <span>Show: </span>
     <FilterLink filter={VisibilityFilters.SHOW_ALL}>All</FilterLink>

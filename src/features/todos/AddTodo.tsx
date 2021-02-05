@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { connect } from 'react-redux'
 import { addTodo } from './todosSlice'
 
-const mapDispatch = { addTodo }
+type AddTodoProps = {
+  addTodo: (text: string) => void
+}
 
-const AddTodo = ({ addTodo }) => {
+const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
   const [todoText, setTodoText] = useState('')
 
-  const onChange = e => setTodoText(e.target.value)
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setTodoText(e.target.value)
 
   return (
     <div>
       <form
-        onSubmit={e => {
+        onSubmit={(e) => {
           e.preventDefault()
           if (!todoText.trim()) {
             return
@@ -28,7 +31,6 @@ const AddTodo = ({ addTodo }) => {
   )
 }
 
-export default connect(
-  null,
-  mapDispatch
-)(AddTodo)
+const mapDispatchToProps = { addTodo }
+
+export default connect(null, mapDispatchToProps)(AddTodo)

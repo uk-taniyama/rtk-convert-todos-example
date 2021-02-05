@@ -11,15 +11,15 @@ describe('todos reducer', () => {
         type: addTodo.type,
         payload: {
           text: 'Run the tests',
-          id: 0
-        }
+          id: 0,
+        },
       })
     ).toEqual([
       {
         text: 'Run the tests',
         completed: false,
-        id: 0
-      }
+        id: 0,
+      },
     ])
 
     expect(
@@ -28,28 +28,28 @@ describe('todos reducer', () => {
           {
             text: 'Run the tests',
             completed: false,
-            id: 0
-          }
+            id: 0,
+          },
         ],
         {
           type: addTodo.type,
           payload: {
             text: 'Use Redux',
-            id: 1
-          }
+            id: 1,
+          },
         }
       )
     ).toEqual([
       {
         text: 'Run the tests',
         completed: false,
-        id: 0
+        id: 0,
       },
       {
         text: 'Use Redux',
         completed: false,
-        id: 1
-      }
+        id: 1,
+      },
     ])
 
     expect(
@@ -58,38 +58,38 @@ describe('todos reducer', () => {
           {
             text: 'Run the tests',
             completed: false,
-            id: 0
+            id: 0,
           },
           {
             text: 'Use Redux',
             completed: false,
-            id: 1
-          }
+            id: 1,
+          },
         ],
         {
           type: addTodo.type,
           payload: {
             text: 'Fix the tests',
-            id: 2
-          }
+            id: 2,
+          },
         }
       )
     ).toEqual([
       {
         text: 'Run the tests',
         completed: false,
-        id: 0
+        id: 0,
       },
       {
         text: 'Use Redux',
         completed: false,
-        id: 1
+        id: 1,
       },
       {
         text: 'Fix the tests',
         completed: false,
-        id: 2
-      }
+        id: 2,
+      },
     ])
   })
 
@@ -100,30 +100,30 @@ describe('todos reducer', () => {
           {
             text: 'Run the tests',
             completed: false,
-            id: 1
+            id: 1,
           },
           {
             text: 'Use Redux',
             completed: false,
-            id: 0
-          }
+            id: 0,
+          },
         ],
         {
           type: toggleTodo.type,
-          payload: 1
+          payload: 1,
         }
       )
     ).toEqual([
       {
         text: 'Run the tests',
         completed: true,
-        id: 1
+        id: 1,
       },
       {
         text: 'Use Redux',
         completed: false,
-        id: 0
-      }
+        id: 0,
+      },
     ])
   })
 })
