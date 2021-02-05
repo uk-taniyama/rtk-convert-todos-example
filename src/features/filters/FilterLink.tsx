@@ -4,11 +4,11 @@ import { RootState } from '../../store'
 import { setVisibilityFilter } from './filtersSlice'
 import Link, { LinkProps } from './Link'
 
-type OwnProps = Pick<LinkProps, 'filter'>
+type FilterLinkProps = Pick<LinkProps, 'filter'>
 
 const mapStateToProps = (
   state: RootState,
-  ownProps: PropsWithChildren<OwnProps>
+  ownProps: PropsWithChildren<FilterLinkProps>
 ) => ({
   ...ownProps,
   active: ownProps.filter === state.visibilityFilter,
