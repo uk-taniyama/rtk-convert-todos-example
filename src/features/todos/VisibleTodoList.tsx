@@ -1,5 +1,6 @@
-import { connect } from 'react-redux'
-import { createSelector } from '@reduxjs/toolkit'
+import { FC, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { bindActionCreators, createSelector } from '@reduxjs/toolkit'
 import { todosSelectors, toggleTodo } from '../todos/todosSlice'
 import TodoList from './TodoList'
 import { VisibilityFilters } from '../filters/filtersSlice'
@@ -34,10 +35,13 @@ const selectVisibleTodos = createSelector(
   }
 )
 
-const mapStateToProps = (state: RootState) => ({
-  todos: selectVisibleTodos(state),
-})
+const VisibleTodoList: FC = ({ ...props }) => {
+  const todos = useSelector(selectVisibleTodos)
+  const dispatch = useDispatch()
+  const actions = useMemo(() => bindActionCreators({ toggleTodo }, dispatch), [
+    dispatch,
+  ])
+  return <TodoList todos={todos} toggleTodo={actions.toggleTodo} {...props} />
+}
 
-const mapDispatchToProps = { toggleTodo }
-
-export default connect(mapStateToProps, mapDispatchToProps)(TodoList)
+export default VisibleTodoList

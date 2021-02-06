@@ -1,14 +1,11 @@
 import React, { FC, useState } from 'react'
-import { connect } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { addTodo } from './todosSlice'
 
-type AddTodoProps = {
-  addTodo: (text: string) => void
-}
-
-const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
+const AddTodo: FC = () => {
   const [todoText, setTodoText] = useState('')
 
+  const dispatch = useDispatch()
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setTodoText(e.target.value)
 
@@ -20,7 +17,7 @@ const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
           if (!todoText.trim()) {
             return
           }
-          addTodo(todoText)
+          dispatch(addTodo(todoText))
           setTodoText('')
         }}
       >
@@ -31,6 +28,4 @@ const AddTodo: FC<AddTodoProps> = ({ addTodo }) => {
   )
 }
 
-const mapDispatchToProps = { addTodo }
-
-export default connect(null, mapDispatchToProps)(AddTodo)
+export default AddTodo
