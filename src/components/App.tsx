@@ -3,7 +3,7 @@ import Footer from '../features/filters/Footer'
 import AddTodo from '../features/todos/AddTodo'
 import VisibleTodoList from '../features/todos/VisibleTodoList'
 
-const App:FC = () => (
+const App: FC = () => (
   <div>
     <AddTodo />
     <VisibleTodoList />
