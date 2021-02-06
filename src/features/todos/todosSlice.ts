@@ -1,4 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import {
+  createEntityAdapter,
+  createSlice,
+  PayloadAction,
+} from '@reduxjs/toolkit'
 
 let nextTodoId = 0
 
@@ -8,23 +12,34 @@ export type TodoItem = {
   text: string
 }
 
-const todosSlice = createSlice({
+export const todosAdapter = createEntityAdapter<TodoItem>()
+
+export const todosSelectors = todosAdapter.getSelectors()
+
+export const todosSlice = createSlice({
   name: 'todos',
-  initialState: [] as TodoItem[],
+  initialState: todosAdapter.getInitialState(),
   reducers: {
     addTodo: {
       reducer(state, action: PayloadAction<{ id: number; text: string }>) {
         const { id, text } = action.payload
-        state.push({ id, text, completed: false })
+        todosAdapter.addOne(state, { id, text, completed: false })
       },
       prepare(text: string) {
         return { payload: { text, id: nextTodoId++ } }
       },
     },
     toggleTodo(state, action: PayloadAction<number>) {
-      const todo = state.find((todo) => todo.id === action.payload)
+      const id = action.payload
+      const todo = todosAdapter.getSelectors().selectById(state, id)
       if (todo) {
-        todo.completed = !todo.completed
+        // todo.completed = !todo.completed;
+        todosAdapter.updateOne(state, {
+          id,
+          changes: {
+            completed: !todo.completed,
+          },
+        })
       }
     },
   },

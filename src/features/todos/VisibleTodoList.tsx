@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import { createSelector } from '@reduxjs/toolkit'
-import { toggleTodo } from '../todos/todosSlice'
+import { todosSelectors, toggleTodo } from '../todos/todosSlice'
 import TodoList from './TodoList'
 import { VisibilityFilters } from '../filters/filtersSlice'
 import { RootState } from '../../store'
@@ -8,8 +8,18 @@ import { RootState } from '../../store'
 const selectTodos = (state: RootState) => state.todos
 const selectFilter = (state: RootState) => state.visibilityFilter
 
+const selectTodosAll = createSelector(selectTodos, (state) =>
+  todosSelectors.selectAll(state)
+)
+
+const selectToById = createSelector(
+  selectTodos,
+  (_: any, todoId: number) => todoId,
+  (todosState, todoId) => todosSelectors.selectById(todosState, todoId)
+)
+
 const selectVisibleTodos = createSelector(
-  [selectTodos, selectFilter],
+  [selectTodosAll, selectFilter],
   (todos, filter) => {
     switch (filter) {
       case VisibilityFilters.SHOW_ALL:
